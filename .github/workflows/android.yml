@@ -72,13 +72,13 @@ jobs:
         with:
           name: package-and-bundle
           path: |
-            ./app/release/app-release.aab
+            ./app/build/outputs/bundle/release/app-release.aab
 
       - name: Upload bundle
         uses: actions/upload-artifact@v4
         with:
           name: android-app-bundle
-          path: ./app/release/app-release.aab
+          path: ./app/build/outputs/bundle/release/app-release.aab
 
   publish_release:
     runs-on: ubuntu-latest
@@ -96,10 +96,10 @@ jobs:
 
       - name: Extract Version
         id: version
-        working-directory: ./main
+        working-directory: ./app
         run: |
           # Use grep and awk to extract the version from build.gradle
-          version=$(grep -oP 'versionName\s+"\K[^"\047]+' build.gradle)
+          version=$(grep -oP 'versionName\s+=\s+"\K[^"\047]+' build.gradle.kts)
           echo "Extracted version: $version"
           echo "release_version=$version" >> $GITHUB_OUTPUT
 
