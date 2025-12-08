@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Wake On LAN</string>
+    <string name="widget_text">Wake Device</string>
 </resources>

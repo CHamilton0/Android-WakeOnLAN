@@ -41,11 +41,13 @@ fun MainScreen(modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
 
+    var deviceName by remember { mutableStateOf("") }
     var ipAddress by remember { mutableStateOf("") }
     var macAddress by remember { mutableStateOf("") }
 
     LaunchedEffect(Unit) {
-        val (mac, ip) = WakePreferences.load(context)
+        val (name, mac, ip) = WakePreferences.load(context)
+        deviceName = name ?: ""
         macAddress = mac ?: ""
         ipAddress = ip ?: ""
     }
@@ -56,6 +58,13 @@ fun MainScreen(modifier: Modifier = Modifier) {
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
+        TextField(
+            value = deviceName,
+            onValueChange = { deviceName = it },
+            label = { Text("Device Name") },
+            modifier = Modifier.fillMaxWidth()
+        )
+
         TextField(
             value = ipAddress,
             onValueChange = { ipAddress = it },
@@ -74,7 +83,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
             onClick = {
                 scope.launch {
                     try {
-                        WakePreferences.save(context, macAddress, ipAddress)
+                        WakePreferences.save(context, deviceName, macAddress, ipAddress)
                         withContext(Dispatchers.IO) {
                             sendWakeOnLan(macAddress, ipAddress)
                         }
