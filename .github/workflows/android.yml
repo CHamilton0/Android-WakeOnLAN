@@ -115,7 +115,7 @@ jobs:
 
       - name: Publish to Google Play
         if: github.ref == 'refs/heads/master'
-        uses: r0adkll/upload-google-play@v1.1.3
+        uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
           packageName: com.privateparking.wakeonlan
