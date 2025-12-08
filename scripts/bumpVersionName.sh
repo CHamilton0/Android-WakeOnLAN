@@ -4,7 +4,7 @@
 script_dir=$(dirname "$(readlink -f "$0")")
 
 # Specify the file containing the version number
-version_file="$script_dir/../RemootioAndroidAuto/main/build.gradle"
+version_file="$script_dir/../app/build.gradle.kts"
 
 # Check if the version file exists
 if [ -e "$version_file" ]; then

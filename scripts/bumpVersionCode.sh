@@ -4,12 +4,12 @@
 script_dir=$(dirname "$(readlink -f "$0")")
 
 # Specify the file containing the version number
-version_file="$script_dir/../RemootioAndroidAuto/main/build.gradle"
+version_file="$script_dir/../app/build.gradle.kts"
 
 # Check if the file exists
 if [ -e "$version_file" ]; then
     # Extract the current version number from the file
-    current_version=$(grep -Eo 'versionCode [0-9]+' "$version_file" | awk '{print $2}')
+    current_version=$(grep -Eo 'versionCode = [0-9]+' "$version_file" | awk '{print $3}')
 
     # Check if the version is a valid integer
     if [[ $current_version =~ ^[0-9]+$ ]]; then
@@ -17,7 +17,7 @@ if [ -e "$version_file" ]; then
         new_version=$((current_version + 1))
 
         # Update the version in the file using sed
-        sed -i "s/versionCode $current_version/versionCode $new_version/" "$version_file"
+        sed -i "s/versionCode = $current_version/versionCode = $new_version/" "$version_file"
 
         echo "Version updated to $new_version in $version_file"
         exit 0
