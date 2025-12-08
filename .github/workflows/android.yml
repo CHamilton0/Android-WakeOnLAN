@@ -109,7 +109,7 @@ jobs:
         with:
           prerelease: true
           files: |
-            main-release.aab
+            app-release.aab
           tag_name: ${{ steps.version.outputs.release_version }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -119,6 +119,6 @@ jobs:
         with:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
           packageName: com.privateparking.wakeonlan
-          releaseFiles: main-release.aab
+          releaseFiles: app-release.aab
           track: internal
           status: draft
